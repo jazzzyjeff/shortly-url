@@ -5,7 +5,6 @@ on:
   push:
     branches: 
       - main
-      - feat/cicd
   pull_request:
     branches:
       - main
@@ -14,6 +13,10 @@ jobs:
   terraform:
     name: terraform
     runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
 
     steps:
       - name: Checkout repo
@@ -29,7 +32,12 @@ jobs:
           sources: |
             variables.auto.tfvars.tmpl => variables.auto.tfvars
             backend.tf
-          variables: '[${{ toJSON(vars) }},${{ toJSON(secrets) }}]'
+          variables: >
+            [
+              ${{ toJSON(vars) }},
+              ${{ toJSON(secrets) }},
+              { "SERVICE": "shortly-url" }
+            ]
           token-pattern: custom
           token-prefix: '${'
           token-suffix: '}'
@@ -52,7 +60,12 @@ jobs:
       - name: Terraform Plan
         run: terraform plan
         working-directory: terraform
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+        working-directory: terraform
+      
+      - name: Terraform Destroy
+        if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
+        run: terraform destroy -auto-approve
+        working-directory: terraform

@@ -36,6 +36,17 @@ jobs:
         run: terraform validate
         working-directory: terraform
 
+      - uses: qetza/replacetokens-action@v1
+        with:
+          sources: |
+            variables.auto.tfvars.tmpl => variables.auto.tfvars
+          variables: '[${{ toJSON(vars) }},${{ toJSON(secrets) }}]'
+          transforms-prefix: '${'
+          transforms-suffix: '}'
+          log-level: debug
+          no-telemetry: true
+          root: terraform
+
       - name: Terraform Plan
         run: terraform plan
         working-directory: terraform

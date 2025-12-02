@@ -40,6 +40,7 @@ jobs:
         with:
           sources: |
             variables.auto.tfvars.tmpl => variables.auto.tfvars
+            backend.tf
           variables: '[${{ toJSON(vars) }},${{ toJSON(secrets) }}]'
           transforms-prefix: '${'
           transforms-suffix: '}'
@@ -50,3 +51,7 @@ jobs:
       - name: Terraform Plan
         run: terraform plan
         working-directory: terraform
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}

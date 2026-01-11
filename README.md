@@ -1,4 +1,4 @@
-<h1 align="center">Welcome to Shortly URL 👋</h1>
+# Welcome to Shortly URL
 
 ## ✨ Overview
 

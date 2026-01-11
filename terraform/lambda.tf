@@ -1,5 +1,6 @@
 module "app1" {
-  source = "terraform-aws-modules/lambda/aws"
+  source  = "terraform-aws-modules/lambda/aws"
+  version = "~> 8.0"
 
   function_name = "${var.service}-app1"
   handler       = "main.lambda_handler"
@@ -32,7 +33,8 @@ module "app1" {
 }
 
 module "app2" {
-  source = "terraform-aws-modules/lambda/aws"
+  source  = "terraform-aws-modules/lambda/aws"
+  version = "~> 8.0"
 
   function_name = "${var.service}-app2"
   handler       = "main.lambda_handler"

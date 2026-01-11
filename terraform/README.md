@@ -7,9 +7,6 @@
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.7 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.0 |
-| <a name="requirement_external"></a> [external](#requirement\_external) | >= 1.0 |
-| <a name="requirement_local"></a> [local](#requirement\_local) | >= 1.0 |
-| <a name="requirement_null"></a> [null](#requirement\_null) | >= 2.0 |
 
 ## Providers
 
@@ -19,10 +16,10 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_api"></a> [api](#module\_api) | terraform-aws-modules/apigateway-v2/aws | n/a |
-| <a name="module_app1"></a> [app1](#module\_app1) | terraform-aws-modules/lambda/aws | n/a |
-| <a name="module_app2"></a> [app2](#module\_app2) | terraform-aws-modules/lambda/aws | n/a |
-| <a name="module_dynamodb"></a> [dynamodb](#module\_dynamodb) | terraform-aws-modules/dynamodb-table/aws | n/a |
+| <a name="module_api"></a> [api](#module\_api) | terraform-aws-modules/apigateway-v2/aws | ~> 6.0 |
+| <a name="module_app1"></a> [app1](#module\_app1) | terraform-aws-modules/lambda/aws | ~> 8.0 |
+| <a name="module_app2"></a> [app2](#module\_app2) | terraform-aws-modules/lambda/aws | ~> 8.0 |
+| <a name="module_dynamodb"></a> [dynamodb](#module\_dynamodb) | terraform-aws-modules/dynamodb-table/aws | ~> 5.0 |
 
 ## Resources
 
@@ -32,6 +29,7 @@ No resources.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_region"></a> [region](#input\_region) | n/a | `string` | n/a | yes |
 | <a name="input_service"></a> [service](#input\_service) | n/a | `string` | n/a | yes |
 
 ## Outputs
